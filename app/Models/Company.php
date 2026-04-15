@@ -29,7 +29,7 @@ use HasFactory;
         ];
     }
 
-    public function getCompany(): ? self
+    public static function getCompany(): ? self
     {
         return self::first();
     }

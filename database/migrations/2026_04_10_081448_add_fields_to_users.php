@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('emloyee_id')
                 ->storedAs("CONCAT('U', LPAD(id, 4, '0'))")
                 ->unique()->nullable()->after('phone');
-            $table->enum('role',['admin', 'employee', 'HRM', 'HOD', 'GM'])->default('employee')->after('emloyee_id');
+            $table->enum('role',['admin', 'employee', 'HRM', 'HOD', 'GM'])->default('employee')->after('employee_id');
             $table->softDeletes();
         });
     }

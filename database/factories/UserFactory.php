@@ -22,6 +22,9 @@ class UserFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    protected static int $employeeCounter = 2; // Start from 2 since U0001 is reserved for admin    
+    
+
     public function definition(): array
     {
         return [
@@ -30,6 +33,8 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'jabatan' => fake()->randomElement(['GM', 'FBM', 'BanquetManager', 'BanquetCaptain', 'BanquetStaff', 'DWBanquet', 'RestaurantManager', 'FBCaptain', 'FBCashier', 'Waiter', 'Bartender', 'Server', 'AsstServer', 'DWFBStaff', 'TraineeFBS', 'SportActivityManager', 'SportActivitySPV', 'PoolAttendant', 'BeachAttendant', 'Secretary', 'PurchasingManager', 'PurchasingStaff', 'LOManager', 'SalesManager', 'LOOfficer', 'ExecutiveCheff', 'SousChef', 'ChiefSteward', 'Steward', 'DWSteward', 'CDP', 'CommisChef', 'DWKitchen', 'DemiPastrier', 'CommisPastrier', 'DwPastrier', 'DemiChef', 'KitchenAdmin', 'ChiefEngineering', 'Engineering', 'ExecutiveHousekeeper', 'HKSPV', 'HKStaff', 'PA', 'DWPA', 'DWMaintenanceAC', 'RA', 'GardenerSPV', 'Gardener', 'LaundrySPV', 'Laundry', ]),
+            'employee_id' =>'U' . str_pad(static::$employeeCounter++, 4, '0', STR_PAD_LEFT),
         ];
     }
 

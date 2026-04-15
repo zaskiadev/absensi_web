@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
+              $table->enum('role',['admin', 'employee', 'HRM', 'HOD', 'GM'])->default('employee')->after('employee_id');
+            $table->softDeletes();
         });
     }
 
@@ -23,6 +25,8 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
+             $table->dropColumn(['phone', 'emloyee_id', 'role']);
+            $table->dropSoftDeletes();
         });
     }
 };
