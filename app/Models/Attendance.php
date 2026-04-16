@@ -18,11 +18,11 @@ class Attendance extends Model
         'check_in_time',
         'check_in_latitude',
         'check_in_longitude',
-        'checkin_photo',
+        'check_in_photo',
         'check_out_time',
         'check_out_latitude',
         'check_out_longitude',
-        'checkout_photo',
+        'check_out_photo',
         'status',
     ];
 

@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    networks:
+      - absensi-net
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: absensi_db
+      MYSQL_ROOT_PASSWORD: rootpassword
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - absensi-net
+
+  ngrok:
+    image: ngrok/ngrok:latest
+    command:
+      - "http"
+      - "app:8000" # Ngrok mem-forward traffic ke container 'app' di port 8000
+    ports:
+      - "4040:4040" # Port untuk melihat web interface Ngrok
+    environment:
+      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
+    depends_on:
+      - app
+    networks:
+      - absensi-net
+
+networks:
+  absensi-net:
+    driver: bridge
+
+volumes:
+  db_data:

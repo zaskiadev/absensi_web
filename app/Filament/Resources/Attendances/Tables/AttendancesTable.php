@@ -10,6 +10,7 @@ use Filament\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
+use Filament\Tables\Columns\ImageColumn;
 
 class AttendancesTable
 {
@@ -34,8 +35,11 @@ class AttendancesTable
                 TextColumn::make('check_in_longitude')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('check_in_photo')
-                    ->searchable(),
+                ImageColumn::make('check_in_photo')
+                    ->disk('public')
+                    ->height(100)
+                    ->width(100)
+                    ,
                 TextColumn::make('check_out_time')
                     ->time()
                     ->sortable(),
@@ -45,8 +49,11 @@ class AttendancesTable
                 TextColumn::make('check_out_longitude')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('check_out_photo')
-                    ->searchable(),
+                ImageColumn::make('check_out_photo')
+                    ->disk('public')
+                    ->height(100)
+                    ->width(100)
+                ,
                 TextColumn::make('status')
                     ->badge(),
                 TextColumn::make('created_at')
