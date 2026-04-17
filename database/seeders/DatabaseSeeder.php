@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
       
 
         // Create 10 employee users with attendance data
-       //$users = User::factory()->count(20)->create();
+      // $users = User::factory()->count(20)->create();
        
        //mengambil user yang sudah ada di database
        $users = User::all();
@@ -34,8 +34,8 @@ class DatabaseSeeder extends Seeder
             return;
         }
         // Generate attendance data for each user for the last 30 days
-        //$startDate = Carbon::now()->subDays(1);
-        $startDate = Carbon::now();
+        $startDate = Carbon::now()->subDays(30);
+        //$startDate = Carbon::now();
         $endDate = Carbon::now();
 
         foreach ($users as $user) {

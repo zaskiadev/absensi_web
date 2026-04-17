@@ -1,4 +1,4 @@
-version: '3.8'
+
 
 services:
   app:
@@ -9,6 +9,7 @@ services:
       - "8000:8000"
     volumes:
       - .:/app
+      - /app/vendor
     depends_on:
       - db
     networks:
@@ -22,7 +23,7 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     ports:
-      - "3306:3306"
+      - "3307:3306"
     networks:
       - absensi-net
 
@@ -39,6 +40,20 @@ services:
       - app
     networks:
       - absensi-net
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80" # Angka 8080 adalah port di Windows kamu
+    environment:
+      PMA_HOST: db # Harus sama dengan nama service database kamu
+      PMA_USER: root
+      PMA_PASSWORD: rootpassword # Sesuaikan dengan MYSQL_ROOT_PASSWORD kamu
+    depends_on:
+      - db
+    networks:
+      - absensi-net
+
 
 networks:
   absensi-net:

@@ -12,13 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            //
-            $table->string('phone')->nullable()->after('password');
-            $table->string('emloyee_id')
-                ->storedAs("CONCAT('U', LPAD(id, 4, '0'))")
-                ->unique()->nullable()->after('phone');
-            $table->enum('role',['admin', 'employee', 'HRM', 'HOD', 'GM'])->default('employee')->after('employee_id');
-            $table->softDeletes();
+            $table->string('jabatan');
         });
     }
 
@@ -29,8 +23,6 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->dropColumn(['phone', 'emloyee_id', 'role']);
-            $table->dropSoftDeletes();
         });
     }
 };

@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             //
             $table->string('phone')->nullable()->after('password');
-            $table->string('emloyee_id')
-                ->storedAs("CONCAT('U', LPAD(id, 4, '0'))")
+            $table->string('employee_id')
                 ->unique()->nullable()->after('phone');
-            $table->string('role',['admin', 'employee', 'HRM', 'HOD', 'GM'])->default('employee')->after('emloyee_id');
+            $table->enum('role',['admin', 'employee', 'HRM', 'HOD', 'GM'])->default('employee')->after('employee_id');
             $table->softDeletes();
         });
     }
@@ -29,9 +28,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->dropColumn(['phone', 'emloyee_id', 'role']);
-            $table->dropSoftDeletes();
-
+     
         });
     }
 };
