@@ -31,6 +31,7 @@ services:
     image: ngrok/ngrok:latest
     command:
       - "http"
+      - "--domain=floral-procedure-masses.ngrok-free.dev"
       - "app:8000" # Ngrok mem-forward traffic ke container 'app' di port 8000
     ports:
       - "4040:4040" # Port untuk melihat web interface Ngrok

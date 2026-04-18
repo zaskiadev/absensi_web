@@ -8,6 +8,7 @@ use Dedoc\Scramble\Support\Generator\OpenApi;
 use Dedoc\Scramble\Support\Generator\SecurityScheme;
 use Dedoc\Scramble\Support\Generator\Operation; // Tambahkan ini
 use Dedoc\Scramble\Support\RouteInfo;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +25,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if (str_contains(env('APP_URL'), 'https')) {
+            URL::forceScheme('https');
+        }
         Scramble::configure()
             ->withDocumentTransformers(function (OpenApi $openApi) {
                 $openApi->secure(

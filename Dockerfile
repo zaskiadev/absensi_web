@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
     libicu-dev
 
 # --- TAMBAHAN BARU: Install Node.js dan NPM ---
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
     && apt-get install -y nodejs
     
 # Install PHP extensions yang dibutuhkan Laravel & Filament
@@ -28,8 +28,14 @@ WORKDIR /app
 # Salin seluruh kode aplikasi
 COPY . .
 
-# Install dependencies Laravel
-RUN composer install --no-interaction --optimize-autoloader
+# Buat .env dari example supaya script tidak gagal saat build
+RUN cp .env.example .env
+
+# Install dependencies Laravel (tanpa menjalankan post-install scripts)
+RUN composer install --no-interaction --optimize-autoloader --no-scripts
+
+# Install Node dependencies dan build assets
+RUN npm install && npm run build
 
 # Expose port untuk local development
 EXPOSE 8000
